@@ -217,7 +217,7 @@
         "IRs": [
           {
             "type": "Jimple",
-            "IRstatement": "$r9 = virtualinvoke $r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(\"number\")"
+            "IRstatement": "$r10 = virtualinvoke $r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(\"text\")"
           }
         ]
       },
