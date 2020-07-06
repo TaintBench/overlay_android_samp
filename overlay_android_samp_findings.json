@@ -62,7 +62,8 @@
         "partialFlow": true
       },
       "ID": 1,
-      "description": "This malicious partial ICC flow starts by reading credit card number from user input and writes to a field of the Activity. When the user performs a click on a button, the information stealing starts. The information will be written to a JSONObject which will be stored into an Intent with the name data. With this intent a new SendService which leaks the card number will be started. "
+      "description": "This malicious partial ICC flow starts by reading credit card number from user input and writes to a field of the Activity. When the user performs a click on a button, the information stealing starts. The information will be written to a JSONObject which will be stored into an Intent with the name data. With this intent a new SendService which leaks the card number will be started. ",
+      "isNegative": false
     },
     {
       "source": {
@@ -114,7 +115,8 @@
         "partialFlow": true
       },
       "ID": 2,
-      "description": "This malicious partial ICC flow reads credit card information from the Intent with which the SendSevice is started and sends it to a remote server per an HTTP POST request. "
+      "description": "This malicious partial ICC flow reads credit card information from the Intent with which the SendSevice is started and sends it to a remote server per an HTTP POST request. ",
+      "isNegative": false
     },
     {
       "source": {
@@ -204,7 +206,8 @@
         "partialFlow": true
       },
       "ID": 3,
-      "description": "This malicious partial ICC flow starts by reading SMS messages from the Intent with which the MessageReceiver is started. The messages will be written to a Map which will be stored into an Intent. With this intent a new SendService which leaks the card number will be started.  "
+      "description": "This malicious partial ICC flow starts by reading SMS messages from the Intent with which the MessageReceiver is started. The messages will be written to a Map which will be stored into an Intent. With this intent a new SendService which leaks the card number will be started.  ",
+      "isNegative": false
     },
     {
       "source": {
@@ -256,7 +259,78 @@
         "partialFlow": true
       },
       "ID": 4,
-      "description": "This malicious partial ICC flow reads SMS messages from the Intent with which the SendService is started and sents it to a remote server per an HTTP Post request."
+      "description": "This malicious partial ICC flow reads SMS messages from the Intent with which the SendService is started and sents it to a remote server per an HTTP Post request.",
+      "isNegative": false
+    },
+    {
+      "source": {
+        "targetName": "getStringExtra",
+        "targetNo": 1,
+        "statement": "String packageNew = getIntent().getStringExtra(\"package\");",
+        "methodName": "public void onNewIntent(Intent intent)",
+        "className": "exts.whats.activities.Cards",
+        "lineNo": 527,
+        "IRs": [
+          {
+            "type": "Jimple",
+            "IRstatement": "$r2 = virtualinvoke $r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(\"package\")"
+          }
+        ]
+      },
+      "sink": {
+        "targetName": "startService",
+        "targetNo": 1,
+        "statement": "startService(start);",
+        "methodName": "public void sendData()",
+        "className": "exts.whats.activities.Cards",
+        "lineNo": 322,
+        "IRs": [
+          {
+            "type": "Jimple",
+            "IRstatement": "virtualinvoke $r0.<exts.whats.activities.Cards: android.content.ComponentName startService(android.content.Intent)>($r3)"
+          }
+        ]
+      },
+      "intermediateFlows": [],
+      "description": "Negative flow. ",
+      "isNegative": true,
+      "attributes": {},
+      "ID": 5
+    },
+    {
+      "source": {
+        "targetName": "getStringExtra",
+        "targetNo": 1,
+        "statement": "this.packageName = getIntent().getStringExtra(\"package\");",
+        "methodName": "public void onCreate(Bundle savedInstanceState)",
+        "className": "exts.whats.activities.Cards",
+        "lineNo": 112,
+        "IRs": [
+          {
+            "type": "Jimple",
+            "IRstatement": "$r7 = virtualinvoke $r6.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(\"package\")"
+          }
+        ]
+      },
+      "sink": {
+        "targetName": "startService",
+        "targetNo": 1,
+        "statement": "startService(start);",
+        "methodName": "public void sendData()",
+        "className": "exts.whats.activities.Cards",
+        "lineNo": 322,
+        "IRs": [
+          {
+            "type": "Jimple",
+            "IRstatement": "virtualinvoke $r0.<exts.whats.activities.Cards: android.content.ComponentName startService(android.content.Intent)>($r3)"
+          }
+        ]
+      },
+      "intermediateFlows": [],
+      "description": "Negative flow. ",
+      "isNegative": true,
+      "attributes": {},
+      "ID": 6
     }
   ]
 }
